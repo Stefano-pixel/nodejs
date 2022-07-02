@@ -30,6 +30,8 @@ router.get('/university', async(req, res, next)=>{
 router.post('/university', async(req, res, next)=>{ 
    try{
        const listUniversity = req.body;
+       console.log('POST---')
+       console.log(listUniversity)
        await db
        .getDb()
        .collection('universities')
