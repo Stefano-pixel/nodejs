@@ -15,7 +15,7 @@ app.use(userRouter)
 //connect to the database
 db.initDb((err, db)=>{
     if(err){
-        console.log(err);
+        console.error(err);
     }else {
         app.listen(port, ()=>{
             console.log('Server is up on port ' + port)
