@@ -1,15 +1,16 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const University = require("../mongoose/University"); 
+const auth = require('../middleware/auth')
+
 const router = new express.Router();
 
 //This get service returns all the universities stored in the db
-router.get('/university', async(req, res, next)=>{
+router.get('/university', auth, async(req, res, next)=>{
     try{
        //Fills the list: listUniversity, with all the objects
        //stored in the db
        const listUniversity = [];
-       console.log(req.query.user)
        var userFound = await University.find({user: req.query.user})
        console.log(userFound)
        res.status(201).send(userFound)
@@ -21,7 +22,7 @@ router.get('/university', async(req, res, next)=>{
 
 //This post service stores all the new universities inserted 
 //from the user
-router.post('/university', async(req, res, next)=>{ 
+router.post('/university', auth, async(req, res, next)=>{ 
    try{
        const listUniversity = req.body;
        await listUniversity.forEach(uniParam => {
@@ -41,7 +42,7 @@ router.post('/university', async(req, res, next)=>{
 
 // //This patch service changes update the objects stored
 // // in the db
-router.patch('/university', async(req, res, next)=>{ 
+router.patch('/university', auth, async(req, res, next)=>{ 
     try{
         //The list: listUniversity, contains lists with length = 2
         //the first element of every list is the old value the second
@@ -57,7 +58,7 @@ router.patch('/university', async(req, res, next)=>{
  })
  
  //This delete service deletes all the universities passed
- router.delete('/university', async(req, res, next)=>{ 
+ router.delete('/university', auth, async(req, res, next)=>{ 
     try{
         const listUniversity = req.body;
         await listUniversity.forEach((uni) => {
